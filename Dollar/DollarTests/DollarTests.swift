@@ -21,7 +21,52 @@ class DollarTests: XCTestCase {
 
     func testFirst() {
         XCTAssertEqualObjects($.first([1, 2, 3, 4])!, 1, "Return first element")
-        XCTAssertNil($.first(NSObject[]()), "Returns nil when array is empty")
+        XCTAssertNil($.first([NSObject]()), "Returns nil when array is empty")
+    }
+
+    func testSecond() {
+        XCTAssertEqualObjects($.second([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 2, "Return second element")
+        XCTAssertNil($.second([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testThird() {
+        XCTAssertEqualObjects($.third([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 3, "Return third element")
+        XCTAssertNil($.third([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testFourth() {
+        XCTAssertEqualObjects($.fourth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 4, "Return fourth element")
+        XCTAssertNil($.fourth([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testFifth() {
+        XCTAssertEqualObjects($.fifth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 5, "Return fifth element")
+        XCTAssertNil($.fifth([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testSixth() {
+        XCTAssertEqualObjects($.sixth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 6, "Return sixth element")
+        XCTAssertNil($.sixth([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testSeventh() {
+        XCTAssertEqualObjects($.seventh([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 7, "Return seventh element")
+        XCTAssertNil($.seventh([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testEighth() {
+        XCTAssertEqualObjects($.eighth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 8, "Return eighth element")
+        XCTAssertNil($.eighth([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testNinth() {
+        XCTAssertEqualObjects($.ninth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 9, "Return ninth element")
+        XCTAssertNil($.ninth([NSObject]()), "Returns nil when array is empty")
+    }
+    
+    func testTenth() {
+        XCTAssertEqualObjects($.tenth([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])!, 10, "Return tenth element")
+        XCTAssertNil($.tenth([NSObject]()), "Returns nil when array is empty")
     }
 
     func testNoop() {
@@ -30,13 +75,18 @@ class DollarTests: XCTestCase {
 
     func testCompact() {
         XCTAssertEqualObjects($.compact([3, nil, 4, 5]), [3, 4, 5], "Return truth array")
-        XCTAssertEqualObjects($.compact([nil, nil]) as NSObject[], [], "Return truth array")
+        XCTAssertEqualObjects($.compact([nil, nil]) as [NSObject], [], "Return truth array")
     }
 
     func testFlatten() {
-        XCTAssertEqualObjects($.flatten([[3], 4, 5]) as Int[], [3, 4, 5], "Return flat array")
-        XCTAssertEqualObjects($.flatten([[3], "Hello", 5]) as NSObject[], [3, "Hello", 5], "Return flat array")
-        XCTAssertEqualObjects($.flatten([[[3], 4], 5]) as Int[], [3, 4, 5], "Return flat array")
+        XCTAssertEqualObjects($.flatten([[3], 4, 5]), [3, 4, 5], "Return flat array")
+        XCTAssertEqualObjects($.flatten([[3], "Hello", 5]), [3, "Hello", 5], "Return flat array")
+        XCTAssertEqualObjects($.flatten([[[3], 4], 5]), [3, 4, 5], "Return flat array")
+    }
+    
+    func testShuffle() {
+        XCTAssertEqualObjects($.shuffle([1]), [1], "Return shuffled array")
+        XCTAssertEqualObjects($.shuffle([1, 2, 3]).length, 3, "Return shuffled array")
     }
 
     func testIndexOf() {
@@ -60,7 +110,7 @@ class DollarTests: XCTestCase {
 
     func testLast() {
         XCTAssertEqualObjects($.last([3, 4, 5])!, 5, "Returns last element in array")
-        XCTAssertNil($.last(NSObject[]()), "Returns nil when array is empty")
+        XCTAssertNil($.last([NSObject]()), "Returns nil when array is empty")
     }
 
     func testFindIndex() {
@@ -92,9 +142,9 @@ class DollarTests: XCTestCase {
     }
 
     func testSequence() {
-        XCTAssertEqualObjects($.sequence(0..4), [0, 1, 2, 3], "Generates array of integers")
-        XCTAssertEqualObjects($.sequence(-2.0..2.0), [-2.0, -1.0, 0.0, 1.0], "Generates array of doubles")
-        XCTAssertEqualObjects($.sequence((0..20).by(5)), [0, 5, 10, 15], "Generates array with offset")
+        XCTAssertEqualObjects($.sequence(0...4), [0, 1, 2, 3], "Generates array of integers")
+        XCTAssertEqualObjects($.sequence(-2.0...2.0), [-2.0, -1.0, 0.0, 1.0], "Generates array of doubles")
+        XCTAssertEqualObjects($.sequence((0...20).by(5)), [0, 5, 10, 15], "Generates array with offset")
         // FIXME: EXC_BAD_INSTRUCTION (code=EXC_i386_INVOP, subcode=0x0) when "abc' is used with AssertEqualObjects
         // XCTAssertEqualObjects($.sequence("abc"), ["a", "b", "c"], "Generates array of characters")
         XCTAssert($.sequence("abc") == ["a", "b", "c"], "Generates array of characters")
@@ -122,7 +172,7 @@ class DollarTests: XCTestCase {
     }
 
     func testZip() {
-        XCTAssertEqualObjects($.zip(["fred", "barney"], [30, 40], [true, false]) as NSObject[], [["fred", 30, true], ["barney", 40, false]], "Zip up arrays")
+        XCTAssertEqualObjects($.zip(["fred", "barney"], [30, 40], [true, false]) as [NSObject], [["fred", 30, true], ["barney", 40, false]], "Zip up arrays")
     }
 
     func testZipObject() {
@@ -135,6 +185,11 @@ class DollarTests: XCTestCase {
 
     func testDifference() {
         XCTAssertEqualObjects($.difference([1, 2, 3, 4, 5], [5, 2, 10]), [1, 3, 4], "Difference of arrays")
+        XCTAssertEqualObjects($.difference([1, 1, 1, 2, 2], [], [3]), [1, 1, 1, 2, 2], "Difference of arrays")
+        XCTAssertEqualObjects($.difference([1, 1, 1, 2, 2], [1, 1], [3]), [2, 2], "Difference of arrays")
+        XCTAssertEqualObjects($.difference([1, 1, 1, 2, 2], [1, 1], [1, 2, 2]), [], "Difference of arrays")
+        XCTAssertEqualObjects($.difference([1, 1, 1, 2, 2], [1, 1, 1], [1, 2, 2]), [], "Difference of arrays")
+        XCTAssertEqualObjects($.difference([1, 1, 1, 2, 2], []), [1, 1, 1, 2, 2], "Difference of arrays")
     }
 
     func testUniq() {
@@ -160,7 +215,8 @@ class DollarTests: XCTestCase {
 
     func testFind() {
         XCTAssertEqualObjects($.find([1, 2, 3, 4], iterator: { $0 == 2 }), 2, "Return element when object is found")
-        XCTAssertNil($.find([1, 2, 3, 4], iterator: { $0 == 10 }), "Return nil when object not found")
+        //FIXME: Uncomment when there is a fix for the compiler
+        //XCTAssertEqualObjects($.find([1, 2, 3, 4], iterator: { $0 == 10 }), nil, "Return nil when object not found")
     }
 
     func testMax() {
@@ -228,30 +284,30 @@ class DollarTests: XCTestCase {
 
     func testChaining() {
         var chain = $(array: [1, 2, 3])
-        XCTAssertEqual(chain.first() as Int, 1, "Returns first element which ends the chain")
+        XCTAssertEqual(chain.first().value() as Int, 1, "Returns first element which ends the chain")
 
         chain = $(array: [[1, 2], 3, [[4], 5]])
-        XCTAssertEqualObjects(chain.flatten().initial(2).value() as Int[], [1, 2, 3], "Returns flatten array from chaining")
+        XCTAssertEqualObjects(chain.flatten().initial(2).value() as [Int], [1, 2, 3], "Returns flatten array from chaining")
 
         chain = $(array: [[1, 2], 3, [[4], 5]])
-        XCTAssertEqual(chain.initial().flatten().first() as Int, 1, "Returns flatten array from chaining")
+        XCTAssertEqual(chain.initial().flatten().first().value() as Int, 1, "Returns flatten array from chaining")
 
         chain = $(array: [[1, 2], 3, [[4], 5]])
-        XCTAssertEqualObjects(chain.flatten().map({ (elem) in elem as Int * 10 }).value() as Int[], [10, 20, 30, 40, 50], "Returns mapped values")
+        XCTAssertEqualObjects(chain.flatten().map({ (elem) in elem as Int * 10 }).value() as [Int], [10, 20, 30, 40, 50], "Returns mapped values")
 
-        XCTAssertEqual(chain.first() as Int, 10, "Returns first element from mapped value")
+        XCTAssertEqual(chain.first().value() as Int, 10, "Returns first element from mapped value")
 
-        var elements: Int[] = []
+        var elements: [Int] = []
         chain.each { elements += $0 as Int }
-        XCTAssertEqualObjects(elements as Int[], [10, 20, 30, 40, 50], "Goes through each element in the array")
+        XCTAssertEqualObjects(elements as [Int], [10, 20, 30, 40, 50], "Goes through each element in the array")
 
-        XCTAssertTrue(chain.all { ( $0 as Int) < 100 }, "All elements are less than 100")
-        XCTAssertFalse(chain.all { ($0 as Int) < 40 }, "All elements are not less than 40")
-        XCTAssertTrue(chain.any { ($0 as Int) < 40 }, "At least one element is less than 40")
+        XCTAssertTrue(chain.all({ $0 < 100 }).value(), "All elements are less than 100")
+        XCTAssertFalse(chain.all({ $0 < 40 }).value(), "All elements are not less than 40")
+        XCTAssertTrue(chain.any({ $0 < 40 }).value(), "At least one element is less than 40")
 
         elements = []
         chain.slice(0, end: 3).each({ elements += $0 as Int})
-        XCTAssertEqualObjects(elements as Int[], [10, 20, 30], "Chained seld")
+        XCTAssertEqualObjects(elements as [Int], [10, 20, 30], "Chained seld")
 
     }
 
@@ -270,7 +326,7 @@ class DollarTests: XCTestCase {
             let people = $.join(names, separator: " from ")
             return "Hello \(people)"
             }, "Ankur", "Swift")
-        XCTAssertEqualObjects($.times(3, function: fun) as String[], ["Hello Ankur from Swift", "Hello Ankur from Swift", "Hello Ankur from Swift"], "Call a function 3 times")
+        XCTAssertEqualObjects($.times(3, function: fun) as [String], ["Hello Ankur from Swift", "Hello Ankur from Swift", "Hello Ankur from Swift"], "Call a function 3 times")
     }
 
     func testAfter() {
@@ -286,17 +342,6 @@ class DollarTests: XCTestCase {
             asyncSave(completeCallback)
         }
         XCTAssertTrue(isDone, "Should be done")
-    }
-
-    func testSlice() {
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 0, end: 2), [1, 2], "Slice subarray 0..2")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 0), [1, 2, 3, 4, 5], "Slice at 0 is whole array")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 3), [4, 5], "Slice with start goes till end")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8), [], "Slice out of bounds is empty")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8, end: 10), [], "Slice out of bounds is empty")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8 , end: 2), [], "Slice with end < start is empty")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 3, end: 3), [], "Slice at x and x is empty")
-        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 2, end: 5), [3,4,5], "Slice at x and x is subarray")
     }
     
     func testPartition() {
@@ -315,7 +360,7 @@ class DollarTests: XCTestCase {
     
     func testPartitionAll() {
         var array = [1, 2, 3, 4, 5]
-
+        
         XCTAssertEqualObjects($.partitionAll(array, n: 2, step: 1), [[1, 2], [2, 3], [3, 4], [4, 5], [5]], "PartitionAll includes partitions less than n.")
         XCTAssertEqualObjects($.partitionAll(array, n: 2), [[1, 2], [3, 4], [5]], "PartitionAll uses n as the step when not supplied.")
         XCTAssertEqualObjects($.partitionAll(array, n:4, step: 1), [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5], [4, 5], [5]], "PartitionAll does not stop at the first partition less than n length.")
@@ -330,9 +375,43 @@ class DollarTests: XCTestCase {
     func testMap() {
         XCTAssertEqualObjects($.map([1, 2, 3, 4, 5]) { $0 * 2 }, [2, 4, 6, 8, 10], "Map function should double values in the array")
     }
-
+    
     func testReduce() {
-        XCTAssertEqual($.reduce([1, 2, 3, 4, 5], initial: 0) { $0 + $1 }, 15, "Reduce function should sum elements in the array")
+        XCTAssertEqual($.reduce([1, 2, 3, 4, 5], initial: 0) { $0 + $1 } as Int, 15, "Reduce function should sum elements in the array")
+    }
+
+    
+    func testSlice() {
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 0, end: 2), [1, 2], "Slice subarray 0..2")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 0), [1, 2, 3, 4, 5], "Slice at 0 is whole array")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 3), [4, 5], "Slice with start goes till end")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8), [], "Slice out of bounds is empty")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8, end: 10), [], "Slice out of bounds is empty")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 8 , end: 2), [], "Slice with end < start is empty")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 3, end: 3), [], "Slice at x and x is empty")
+        XCTAssertEqualObjects($.slice([1,2,3,4,5], start: 2, end: 5), [3,4,5], "Slice at x and x is subarray")
+    }
+    
+    func testFib() {
+        var times = 0
+        let fibMemo = $.memoize { (fib: (Int -> Int), val: Int) -> Int in
+            times += 1
+            return val == 1 || val == 0 ? 1 : fib(val - 1) + fib(val - 2)
+        }
+        let x = fibMemo(5)
+        XCTAssertEqualObjects(times, 6, "Function called 6 times")
+        times = 0
+        let y = fibMemo(5)
+        XCTAssertEqualObjects(times, 0, "Function called 0 times due to memoize")
+
+        times = 0
+        let z = fibMemo(6)
+        XCTAssertEqualObjects(times, 1, "Function called 1 times due to memoize")
+    }
+    
+   
+    func testId() {
+        XCTAssertEqual($.id(1), 1, "Id should return the argument it gets passed")
     }
 
 }
